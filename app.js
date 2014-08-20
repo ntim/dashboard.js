@@ -9,6 +9,7 @@ var routes = require('./routes/index');
 var weather = require('./routes/weather');
 var departures = require('./routes/departures');
 var temperatures = require('./routes/temperatures');
+var menu = require('./routes/menu');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use('/', routes);
 app.use('/weather', weather);
 app.use('/departures', departures);
 app.use('/temperatures', temperatures);
+app.use('/menu', menu);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

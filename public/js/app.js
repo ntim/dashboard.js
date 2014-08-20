@@ -1,3 +1,10 @@
+function trim(str, max) {
+	if (str.length > max) {
+		str = str.substring(0, max - 1) + "...";
+	}
+	return str;
+}
+
 angular.module('app', []).controller('weather', ['$scope', function($scope) {
 	$scope.temperature = "-";
 	$scope.humidity = "-";
@@ -52,5 +59,18 @@ angular.module('app', []).controller('weather', ['$scope', function($scope) {
 	}
 	// Update every 10 seconds.
 	setInterval(update, 10000);
+	update();
+}]).controller('menu', ['$scope', function($scope) {
+	function update() {
+		$.get("/menu", function(j) {
+			$scope.dishes = j.map(function(d) {
+				d.dish = trim(d.dish, 28);
+				return d;
+			}).slice(0, 4);
+		});
+		$scope.$apply();
+	}
+	// Update every 60 seconds.
+	setInterval(update, 60000);
 	update();
 }]);
