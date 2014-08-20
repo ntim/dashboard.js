@@ -33,7 +33,7 @@ h2 {
 	background: white;
 }
 
-.gs-w > div {
+.gridster .gs-w > div {
 	padding: 1em;
 	padding-top: 3em;
 	text-align: center;
