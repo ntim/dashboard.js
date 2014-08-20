@@ -6,11 +6,13 @@ var fs = require('fs');
 var glob = require('glob');
 var later = require('later');
 
+// Find all 1wire temperature devices.
 var pattern = '/sys/bus/w1/devices/*/w1_slave';
 var paths = glob.sync(pattern);
 var last = [];
 
 function read(path, callback) {
+	// Read device file contents.
 	fs.readFile(path, 'utf8', function(err, data) {
 		var res = {
 			path : path,
@@ -20,6 +22,7 @@ function read(path, callback) {
 		if (err) {
 			return callback(res);
 		}
+		// Find temperature.
 		var matches = data.match(/t=([0-9]+)/);
 		res.celsius = parseInt(matches[1]) / 1000;
 		res.fahrenheit = ((res.celsius * 1.8) + 32).toFixed(3);
@@ -28,7 +31,9 @@ function read(path, callback) {
 }
 
 function update() {
+	// Delete previous objects.
 	last = [];
+	// Read temperature from all devices.
 	paths.forEach(function(path, index, array) {
 		read(path, function(data) {
 			last.push(data);
@@ -41,7 +46,7 @@ router.get('/', function(req, res) {
 	res.json(last);
 });
 
-/* Update 10 seconds */
+// Update every 10 seconds
 var schedule = later.parse.recur().every(10).second();
 later.setInterval(update, schedule);
 
