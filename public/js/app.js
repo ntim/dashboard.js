@@ -5,6 +5,37 @@ function trim(str, max) {
 	return str;
 }
 
+function temperatures_chart() {
+	$.get("/temperatures/all/0", function(data) {
+		var min = Number.MAX_VALUE;
+		var max = Number.MIN_VALUE;
+		data = data.map(function(d) {
+			d.time = Date.parse(d.time);
+			min = Math.min(min, d.value);
+			max = Math.max(max, d.value);
+			return {
+				x : d.time,
+				y : d.value
+			};
+		});
+		var dy = Math.max(2.0, (max - min) * 0.25);
+		var graph = new Rickshaw.Graph({
+			element : document.querySelector("#temperatures-chart"),
+			width : 320,
+			height : 160,
+			min : min - dy,
+			max : max + dy,
+			interpolation : 'linear',
+			stroke : true,
+			series : [{
+				color : 'black',
+				data : data
+			}]
+		});
+		graph.render();
+	}, "json");
+}
+
 angular.module('app', []).controller('weather', ['$scope', function($scope) {
 	$scope.temperature = "-";
 	$scope.humidity = "-";
@@ -56,6 +87,7 @@ angular.module('app', []).controller('weather', ['$scope', function($scope) {
 			}
 			$scope.$apply();
 		});
+		temperatures_chart();
 	}
 	// Update every 10 seconds.
 	setInterval(update, 10000);

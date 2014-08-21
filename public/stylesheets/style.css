@@ -1,7 +1,8 @@
 body {
 	padding: 50px;
 	font-size: 14px;
-	font-family: proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: proxima-nova, "Helvetica Neue", Helvetica, Arial,
+		sans-serif;
 	background: #eee;
 }
 
@@ -11,19 +12,19 @@ a {
 
 h1 {
 	font-size: 2em;
-	color: rgb(64,127,183);
+	color: rgb(64, 127, 183);
 }
 
 h2 {
 	font-size: 1.5em;
 }
 
-.gridster > * {
+.gridster>* {
 	margin: 0;
 	margin-left: -14px;
 }
 
-.gridster > ul {
+.gridster>ul {
 	list-style: none outside none;
 }
 
@@ -31,9 +32,10 @@ h2 {
 	border: 1px solid #DDDDDD;
 	border-radius: 4px 4px 4px 4px;
 	background: white;
+	overflow: hidden;
 }
 
-.gs-w > div {
+.gs-w>div {
 	padding: 1em;
 	padding-top: 3em;
 	text-align: center;
@@ -43,7 +45,7 @@ h2 {
 	background-color: #F5F5F5;
 	border: 1px solid #DDDDDD;
 	border-radius: 4px 0 4px 0;
-	color: rgb(87,171,39);
+	color: rgb(87, 171, 39);
 	font-weight: bold;
 	font-size: 1em;
 	left: -1px;
@@ -66,4 +68,17 @@ h2 {
 
 .gs-w td:first-child {
 	font-weight: bold;
+}
+
+.rickshaw_graph {
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+}
+
+.rickshaw_graph .path {
+	stroke: #dddddd;
+	stroke-width: 0;
+	fill: rgba(64, 127, 183, 0.33);
 }

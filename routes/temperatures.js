@@ -73,12 +73,16 @@ router.get('/', function(req, res) {
 
 /* GET temperatures page. */
 router.get('/all/:id', function(req, res) {
-	db.query(util.format('SELECT * FROM `temp%d` ORDER BY `id` DESC LIMIT 256', req.params.id), function(err, rows) {
+	db.query(util.format('SELECT * FROM `temp%d` WHERE `value` != 85.0 ORDER BY `id` DESC LIMIT 256', req.params.id), {
+		id : Number,
+		time : Date,
+		value : Number
+	}, function(err, rows) {
 		if (err) {
 			console.log(err);
 			return res.json(err);
 		}
-		res.json(rows);
+		res.json(rows.reverse());
 	});
 });
 
