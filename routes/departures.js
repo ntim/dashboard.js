@@ -8,7 +8,10 @@ var util = require('util');
 router.get('/', function(req, res) {
 	// Request departures from the ASEAG, a public transport organization in
 	// Aachen.
-	var stopId = 100629;
+	// Request stop id -> stop name via
+	// http://ivu.aseag.de/interfaces/ura/instant_V1?ReturnList=stopid,stoppointname
+	// var stopId = 100629; // "Campus melaten"
+	var stopId = 100008; // "Augustastrasse"
 	var path = util.format('/interfaces/ura/instant_V1?StopID=%d'
 			+ '&ReturnList=StopPointName,LineName,DestinationName,EstimatedTime', stopId);
 	request('http://ivu.aseag.de' + path, function(error, response, body) {
