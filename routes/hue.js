@@ -10,8 +10,10 @@ var api = null;
 
 function discover() {
 	hue.locateBridges().then(function(bridges) {
-		host = bridges[0].ipaddress;
-		api = new hue.HueApi(host, username);
+		if (bridges.length > 0) {
+			host = bridges[0].ipaddress;
+			api = new hue.HueApi(host, username);
+		}
 	}).done();
 }
 
@@ -82,6 +84,7 @@ router.get('/on', function(req, res) {
 	});
 });
 
-discover();
+// TODO: discover on the raspberry pi yields in a timeout exception.
+// discover();
 
 module.exports = router;
