@@ -9,7 +9,7 @@ function temperatures_chart() {
 	$.get("/temperatures/all/0", function(data) {
 		var min = Number.MAX_VALUE;
 		var max = Number.MIN_VALUE;
-		data = data.map(function(d) {
+		var seriesdata = data.map(function(d) {
 			d.time = Date.parse(d.time);
 			min = Math.min(min, d.value);
 			max = Math.max(max, d.value);
@@ -29,10 +29,25 @@ function temperatures_chart() {
 			stroke : true,
 			series : [{
 				color : 'black',
-				data : data
+				data : seriesdata
 			}]
 		});
 		graph.render();
+		setInterval(function() {
+			$.get("/temperatures/all/0", function(data) {
+				// Empty array.
+				seriesdata.length = 0;
+				// Replace contents.
+				Array.prototype.push.apply(seriesdata, data.map(function(d) {
+					return {
+						x : Date.parse(d.time),
+						y : d.value
+					};
+				}));
+				// Update graph.
+				graph.update();
+			});
+		}, 10000);
 	}, "json");
 }
 
@@ -87,7 +102,6 @@ angular.module('app', []).controller('weather', ['$scope', function($scope) {
 			}
 			$scope.$apply();
 		});
-		temperatures_chart();
 	}
 	// Update every 10 seconds.
 	setInterval(update, 10000);
