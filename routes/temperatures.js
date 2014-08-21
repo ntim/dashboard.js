@@ -72,17 +72,14 @@ router.get('/', function(req, res) {
 });
 
 /* GET temperatures page. */
-router.get('/all', function(req, res) {
-	var results = [];
-	last.forEach(function(path, index, array) {
-		db.query(util.format('SELECT * FROM `temp%d` ORDER BY `id` DESC LIMIT 256', index), function(err, rows) {
-			if (err) {
-				console.log(err);
-			}
-			results.push(rows);
-		});
+router.get('/all/:id', function(req, res) {
+	db.query(util.format('SELECT * FROM `temp%d` ORDER BY `id` DESC LIMIT 256', req.params.id), function(err, rows) {
+		if (err) {
+			console.log(err);
+			return res.json(err);
+		}
+		res.json(rows);
 	});
-	res.json(results);
 });
 
 // Update every 10 seconds
