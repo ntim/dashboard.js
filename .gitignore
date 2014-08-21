@@ -29,4 +29,5 @@ node_modules
 .project
 .settings
 .jshintrc
+*.sqlite
 
