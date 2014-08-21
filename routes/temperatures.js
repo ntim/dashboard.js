@@ -86,8 +86,8 @@ router.get('/all/:id', function(req, res) {
 	});
 });
 
-// Update every 10 seconds
-var schedule = later.parse.recur().every(10).second();
+// Update every 60 seconds
+var schedule = later.parse.recur().every(60).second();
 later.setInterval(update, schedule);
 
 module.exports = router;
