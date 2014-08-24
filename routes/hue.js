@@ -5,17 +5,18 @@ var request = require("request");
 var util = require('util');
 
 var username = "newdeveloper";
-var host = null;
-var api = null;
+var host = "192.168.178.33";
 
 function discover() {
 	hue.locateBridges().then(function(bridges) {
 		if (bridges.length > 0) {
 			host = bridges[0].ipaddress;
-			api = new hue.HueApi(host, username);
 		}
 	}).done();
 }
+
+//TODO: discover on the raspberry pi yields in a timeout exception.
+//discover();
 
 /* GET off page. */
 router.get('/bridges', function(req, res) {
@@ -37,6 +38,7 @@ router.get('/lights', function(req, res) {
 /* GET off page. */
 router.get('/off', function(req, res) {
 	var state = hue.lightState.create().off();
+	var api = new hue.HueApi(host, username);
 	api.lights(function(error, result) {
 		var lights = result.lights;
 		// Do the setting of the light sync since the bridge only accepts a few
@@ -62,6 +64,7 @@ router.get('/off', function(req, res) {
 /* GET off page. */
 router.get('/on', function(req, res) {
 	var state = hue.lightState.create().on();
+	var api = new hue.HueApi(host, username);
 	api.lights(function(error, result) {
 		var lights = result.lights;
 		// Do the setting of the light sync since the bridge only accepts a few
@@ -75,7 +78,7 @@ router.get('/on', function(req, res) {
 					set(i + 1);
 				} else {
 					res.json({
-						success : "off"
+						success : "on"
 					});
 				}
 			});
@@ -83,8 +86,5 @@ router.get('/on', function(req, res) {
 		set(0);
 	});
 });
-
-// TODO: discover on the raspberry pi yields in a timeout exception.
-// discover();
 
 module.exports = router;
