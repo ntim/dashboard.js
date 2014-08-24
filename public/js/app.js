@@ -49,7 +49,7 @@ function temperatures_chart() {
 				});
 				svg.selectAll("path").datum(data).attr("d", area);
 			});
-		}, 10000);
+		}, 60000);
 	}, "json");
 }
 
