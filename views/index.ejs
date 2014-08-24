@@ -7,13 +7,10 @@
     <script src="/js/angular.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/d3.min.js"></script>
-    <script src="/js/d3.layout.min.js"></script>
-    <script src="/js/rickshaw.min.js"></script>
     <script src="/js/app.js"></script>
     <link rel='stylesheet' href='/stylesheets/jquery.gridster.min.css' />
     <link rel='stylesheet' href='/stylesheets/font-awesome.min.css' />
     <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-    <link rel='stylesheet' href='/stylesheets/rickshaw.min.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script>
     	$(function(){ //DOM Ready
@@ -65,7 +62,7 @@
 		    <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
 				<span class="gs-w-title"><i class="fa fa-fire"></i> Temperature</span>
 		    	<div ng-controller="temperatures">
-			    	<div id="temperatures-chart"></div>
+			    	<div id="temperatures-chart" class="chart"></div>
 			    	<h2>{{temperature}} &deg; C</h2>
 			    </div>
 		    </li>

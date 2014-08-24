@@ -70,15 +70,20 @@ h2 {
 	font-weight: bold;
 }
 
-.rickshaw_graph {
+.chart {
 	position: absolute;
 	top: 0;
 	left: 0;
 	overflow: hidden;
 }
 
-.rickshaw_graph .path {
-	stroke: #dddddd;
-	stroke-width: 0;
-	fill: rgba(64, 127, 183, 0.33);
+.axis path,
+.axis line {
+    fill: none;
+    stroke: rgba(64, 127, 183, 1);
+    shape-rendering: crispEdges;
+}
+
+.axis {
+	font-size: 10px
 }

@@ -73,8 +73,7 @@ router.get('/', function(req, res) {
 
 /* GET temperatures page. */
 router.get('/all/:id', function(req, res) {
-	db.query(util.format('SELECT * FROM `temp%d` WHERE `value` != 85.0 ORDER BY `id` DESC LIMIT 256', req.params.id), {
-		id : Number,
+	db.query(util.format('SELECT `time`, `value` FROM `temp%d` WHERE `value` != 85.0 AND time > date (\'now\', \'-1 day\') ORDER BY `id` DESC', req.params.id), {
 		time : Date,
 		value : Number
 	}, function(err, rows) {
