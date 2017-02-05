@@ -1,10 +1,13 @@
 #!/usr/bin/env python
+# Reads current weather status from openweathermap. 
+# 
 import requests
 import json
 
-lat = 50.7765549
-lon = 6.046465
-apikey = None
+nconf = json.load(open("config.json"))
+lat = nconf["weather"]["lat"]
+lon = nconf["weather"]["lon"]
+apikey = nconf["weather"]["apikey"]
 
 url = "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&lang=en&units=metric&APPID=%s" % (lat, lon, apikey)
 r = requests.get(url)

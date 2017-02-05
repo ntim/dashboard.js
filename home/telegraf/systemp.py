@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# Reads the CPU and GPU temperature of a Raspberry Pi using vcgencmd.
+# Telegraf userid must have permissions to invoke vcgencmd.
 import subprocess
 import json
 
