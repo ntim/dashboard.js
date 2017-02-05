@@ -63,62 +63,65 @@ angular.module('app', []).controller('clock', ['$scope', function($scope) {
 }]).directive("chart", ['$window',
 function($window) {
 	return {
-		restrict : 'E',
-		replace : false,
-		link : function(scope, element, attrs) {
+		restrict: 'E',
+		replace: true,
+		template: '<div></div>',
+		link: function(scope, element, attrs) {
 			var height = 116;
 			var colors = ["#375a7f", "#217dbb", "#00bc8c", "#007053"];
 			var offset = parseFloat(attrs.offset);
 			var range = parseFloat(attrs.range);
-			// Get chart element.
-			var chart = d3.select(element[0]);
-			var width = function() {
-				return Math.ceil(chart.node().parentNode.getBoundingClientRect().width);
-			};
-			// 
-			var format_value = function(value) {
-				var format = d3.format(".1f");
-				// Apply offset to compensate centering.
-				return format(value + offset) + attrs.unit;
-			};
-			// Compute step function
-			var step = function() {
+			// Data URI.
+			var get_uri = function() {
 				var selection = $('#span-select .active input')[0];
-				var period = parseInt(selection.getAttribute('period'));
-				return period / width() * 1000.0;
+				var start = parseInt(selection.getAttribute('period'));
+				var step = start / 60;
+				return "/query/" + attrs.table + "/" + attrs.field + "/" + start + "s/" + step + "s";
 			}
-			// Metric function
-			var metric = function(start, stop, step, callback) {
-				var influx_format = 'YYYY-MM-DD HH:mm:ss.SSSS';
-				d3.json("/query/" 
-						+ attrs.table + "/" 
-						+ attrs.field + "/" 
-						+ moment(start).utc().format(influx_format) + "/" 
-						+ moment(stop).utc().format(influx_format) + "/" 
-						+ (step / 1000).toFixed(0) + "s", function(data) {
-					if (!data) {
-						return callback(new Error("unable to load data"));
-					}
-					var values = data.map(function(d) {
-						if (d.value == null) {
-							return NaN;
-						}
-						// Values are centered around offset.
-						return d.value - offset;
-					});
-					callback(null, values);
-				});
-			};
-			// Setup horizon.
-			var context = cubism.context().serverDelay(10 * 1000).step(step()).size(width());
+			// Data incubator.
+			var incubate = function(values) {
+				return [{
+					x: values.map(function(v) {
+							return v.time;
+						}), 
+					y: values.map(function(v) {
+							return v.value;
+						}), 
+					type: "scatter"
+				}];
+			}
+			// Create chart.
 			var init = function() {
-				chart.call(function(div) {
-					div.datum(context.metric(metric, ""));
-					div.append("div").attr("class", "horizon").call(
-						// Display range of values.
-						context.horizon().height(height).mode("offset").extent([-range, range]).colors(colors).format(format_value)
-					);
-					div.append("div").attr("class", "axis").call(context.axis().orient("bottom"));
+				$.get(get_uri(), function(values) {
+					var layout =  {
+						autosize: true,
+						paper_bgcolor: '#000000ff',
+						height: 148,
+						font: {
+							family: '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
+						},
+						xaxis: {
+							showline: true,
+							ticks: 'inside',
+							mirror: 'allticks',
+							tickangle: 0,
+						},
+						yaxis: {
+							title: attrs.name + ' / ' + attrs.unit,
+							showline: true,
+							ticks: 'inside',
+							mirror: 'allticks',
+							hoverformat: '.2f', 
+						},
+						margin: {l: 50, b: 50, r: 30, t: 30}
+					};
+					Plotly.newPlot(element[0], incubate(values), layout);
+				});
+			}
+			// Update function.
+			var update = function() {
+				$.get(get_uri(), function(values) {
+					Plotly.restyle(element[0], incubate(values), [0]);
 				});
 			}
 			// Check if dom already present.
@@ -129,18 +132,11 @@ function($window) {
 					init();
 				});
 			}
-			// Listen to changes in size.
-			angular.element($window).bind('resize', function() {
-				context.stop();
-				context.step(step()).size(width());
-				context.start();
-			});
+			// Listen to changes of the duration setting.
 			$('#span-select label').click(function() {
-				context.stop();
 				$('#span-select label').removeClass('active');
 				$(this).addClass('active');
-				context.step(step()).size(width());
-				context.start();
+				update();
 			});
 		}
 	};

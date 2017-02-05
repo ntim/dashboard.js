@@ -31,8 +31,7 @@ app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dis
 app.use('/fonts', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/fonts')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/angular')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/moment')));
-app.use('/js', express.static(path.join(__dirname, '/node_modules/d3')));
-app.use('/js', express.static(path.join(__dirname, '/node_modules/cubism')));
+app.use('/js', express.static(path.join(__dirname, '/node_modules/plotly.js/dist')));
 app.use('/css', express.static(path.join(__dirname, '/node_modules/font-awesome/css')));
 app.use('/fonts', express.static(path.join(__dirname, '/node_modules/font-awesome/fonts')));
 

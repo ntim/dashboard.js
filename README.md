@@ -1,4 +1,4 @@
 dashboard.js
 ============
 
-Node-Js Application for my RPi which collects and presents information with jquery gridster. 
+Node.js dashboard application running on my Raspberry Pi displaying information collected from openweathermap and influxdb. 
