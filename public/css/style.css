@@ -46,6 +46,10 @@ body {
 .panel-heading {
 	padding-left: 8px;
 }
-.panel-body.chart {
+.panel-chart .panel-body {
 	padding: 0;
+}
+.chart {
+	position: relative;
+	display: block;
 }

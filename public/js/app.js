@@ -1,3 +1,48 @@
+function ColorCycler() {
+	this.colors = ["#0275d8", "#5cb85c", "#d9534f"]
+	this.idx = 0;
+
+	this.next = function() {
+		var c = this.colors[this.idx++];
+		if (this.idx >= this.colors.length) {
+			this.idx = 0;
+		}
+		return c;
+	}
+}
+// Define globally to cycle plot line colors globally.
+var cycler = new ColorCycler();
+
+function DataIncubator() {
+	this.data = {
+		x: [], 
+		y: [], 
+		type: "scatter", 
+		line: { 
+			color: cycler.next() 
+		}
+	};
+	this.update = function(values) {
+		// Prepare values
+		x = values.map(function(v) {
+			return v.time;
+		});
+		y = values.map(function(v) {
+			return v.value;
+		});
+        // Delete old data.
+		while (this.data.x.length > 0) {
+			this.data.x.pop();
+			this.data.y.pop();
+		}
+		// Add new data.
+		for (var i = 0; i < x.length; i++) {
+			this.data.x.push(x[i]);
+			this.data.y.push(y[i]);
+		}
+		return this.data;
+	}
+}
 
 // Remember if the load event already fired.
 angular.element(window).bind('load', function() {
@@ -65,12 +110,8 @@ function($window) {
 	return {
 		restrict: 'E',
 		replace: true,
-		template: '<div></div>',
+		template: '<div class="chart"></div>',
 		link: function(scope, element, attrs) {
-			var height = 116;
-			var colors = ["#375a7f", "#217dbb", "#00bc8c", "#007053"];
-			var offset = parseFloat(attrs.offset);
-			var range = parseFloat(attrs.range);
 			// Data URI.
 			var get_uri = function() {
 				var selection = $('#span-select .active input')[0];
@@ -79,49 +120,53 @@ function($window) {
 				return "/query/" + attrs.table + "/" + attrs.field + "/" + start + "s/" + step + "s";
 			}
 			// Data incubator.
-			var incubate = function(values) {
-				return [{
-					x: values.map(function(v) {
-							return v.time;
-						}), 
-					y: values.map(function(v) {
-							return v.value;
-						}), 
-					type: "scatter"
-				}];
-			}
+			var incubator = new DataIncubator();
 			// Create chart.
 			var init = function() {
 				$.get(get_uri(), function(values) {
 					var layout =  {
 						autosize: true,
-						paper_bgcolor: '#000000ff',
+						paper_bgcolor: '#303030',
+						plot_bgcolor: '#303030',
 						height: 148,
 						font: {
 							family: '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
+							color: 'white'
 						},
 						xaxis: {
+							type: 'date',
 							showline: true,
 							ticks: 'inside',
 							mirror: 'allticks',
+							zeroline: false,
 							tickangle: 0,
+							linecolor: 'white',
 						},
 						yaxis: {
-							title: attrs.name + ' / ' + attrs.unit,
 							showline: true,
 							ticks: 'inside',
-							mirror: 'allticks',
-							hoverformat: '.2f', 
+							zeroline: false,
+							hoverformat: '.2f ', 
+							anchor: 'free',
+							position: 0.1,
+							tickfont: {
+								color: '#888888'
+							}
 						},
-						margin: {l: 50, b: 50, r: 30, t: 30}
+						margin: {l: 0, b: 40, r: 0, t: 0}
 					};
-					Plotly.newPlot(element[0], incubate(values), layout);
+					var options = {
+						displayModeBar: false,
+						scrollZoom: false
+					}
+					Plotly.newPlot(element[0], [incubator.update(values)], layout, options);
 				});
 			}
 			// Update function.
 			var update = function() {
 				$.get(get_uri(), function(values) {
-					Plotly.restyle(element[0], incubate(values), [0]);
+					incubator.update(values);
+					Plotly.redraw(element[0]);
 				});
 			}
 			// Check if dom already present.
@@ -137,6 +182,10 @@ function($window) {
 				$('#span-select label').removeClass('active');
 				$(this).addClass('active');
 				update();
+			});
+			//
+			angular.element($window).bind('resize', function() {
+				Plotly.Plots.resize(element[0]);
 			});
 		}
 	};
