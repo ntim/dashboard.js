@@ -1,0 +1,13 @@
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <i class="fa fa-sun-o"></i> Weather
+  </div>
+  <div ng-controller="weather">
+    <table class="table table-striped">
+      <tr><td style="border-top: none;">Temperature</td><td style="border-top: none;">{{temperature | number:1}} &deg; C</td></tr>
+      <tr><td>Humidity</td><td>{{humidity | number:0}} %</td></tr>
+      <tr><td>Pressure</td><td>{{pressure | number:0}} hPa</td></tr>
+      <tr><td>Rain</td><td>{{rain}} mm / h</td></tr>
+    </table>
+  </div>
+</div>

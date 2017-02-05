@@ -1,0 +1,135 @@
+body {
+	padding-top: 5.5em;
+}
+
+.panel {
+	height:190px;
+	overflow:hidden;
+	border-radius:4px 4px 4px 4px;
+	margin-bottom:30px;
+}
+.panel-clock {
+	text-align:center;
+	padding:15px;
+}
+.clock-wrapper {
+	position:relative;
+	width:140px;
+	height:140px;
+	margin:auto;
+}
+.panel-clock .time {
+	color:white;
+	font-size:1.25em;
+	font-weight:bold;
+	position:relative;
+	bottom:84px;
+	display:block;
+}
+.panel-clock .datetime {
+	color:white;
+	font-size:1.25em;
+	font-weight:bold;
+	position:relative;
+	bottom:27px;
+	display:block;
+}
+.panel-double-height {
+	height:410px;
+}
+.panel .table {
+	margin-bottom:0;
+}
+.panel .table tr:first-child td {
+	border-top:none;
+}
+.panel-heading {
+	padding-left:8px;
+}
+.page-header {
+	margin-top:20px;
+	padding-bottom:0;
+	margin-bottom:20px;
+}
+.chart {
+	padding:0;
+}
+svg {
+	font:15px sans-serif;
+}
+.axis {
+	font:15px sans-serif;
+	position:fixed;
+	pointer-events:none;
+	z-index:2;
+}
+.axis text {
+	-webkit-transition:fill-opacity 250ms linear;
+	fill:#fff;
+}
+.axis path {
+	display:none;
+}
+.axis line {
+	stroke:#fff;
+	shape-rendering:crispEdges;
+}
+.axis.top {
+	background-image:linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+	background-image:-o-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+	background-image:-moz-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+	background-image:-webkit-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+	background-image:-ms-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+	top:0px;
+	padding:0 0 24px 0;
+}
+.axis.bottom {
+	background-image:linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+	background-image:-o-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+	background-image:-moz-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+	background-image:-webkit-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+	background-image:-ms-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+	bottom:0px;
+	padding:24px 0 0 0;
+}
+.horizon {
+	overflow:hidden;
+	position:relative;
+	border-bottom:solid 1px #fff;
+}
+.horizon + .horizon {
+	border-top:none;
+}
+.horizon canvas {
+	display:block;
+}
+.horizon .title, .horizon .value {
+	bottom:0;
+	line-height:30px;
+	margin:0 6px;
+	position:absolute;
+	text-shadow:0 1px 0 rgba(255,255,255,.5);
+	white-space:nowrap;
+}
+.horizon .title {
+	left:0;
+}
+.horizon .value {
+	right:0;
+	top:0;
+}
+.line {
+	background:#000;
+	opacity:.2;
+	z-index:2;
+}
+.axis {
+	position:static;
+}
+.axis.top, .axis.bottom {
+	padding:0;
+}
+.panel-heading small {
+	color: #bbb;
+	float: right;
+}

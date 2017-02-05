@@ -31,3 +31,5 @@ node_modules
 .jshintrc
 *.sqlite
 
+# Config file
+config.json

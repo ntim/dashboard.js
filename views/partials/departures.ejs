@@ -1,0 +1,14 @@
+<div class="panel panel-danger">
+  <div class="panel-heading">
+    <i class="fa fa-location-arrow"></i> Departures
+  </div>
+  <div ng-controller="departures">
+  <table class="table table-striped">
+    <tr ng-repeat="d in departures">
+      <td>{{d.line}}</td>
+      <td>{{d.destination}}</td>
+      <td>&#8618; {{d.eta}}</td>
+    </tr>
+  </table>
+  </div>
+</div>

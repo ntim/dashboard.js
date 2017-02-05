@@ -4,14 +4,23 @@ var request = require('request');
 var moment = require('moment');
 var util = require('util');
 
+var nconf = require('nconf');
+// Then load configuration from a designated file.
+nconf.file({ file: 'config.json' });
+// Provide default values for settings not provided above.
+nconf.defaults({
+	'departures' : {
+		'stop_id' : "100629" // Campus melaten
+	}
+});
+
 /* GET departures page. */
 router.get('/', function(req, res) {
 	// Request departures from the ASEAG, a public transport organization in
 	// Aachen.
 	// Request stop id -> stop name via
 	// http://ivu.aseag.de/interfaces/ura/instant_V1?ReturnList=stopid,stoppointname
-	// var stopId = 100629; // "Campus melaten"
-	var stopId = 100008; // "Augustastrasse"
+	var stopId = nconf.get("departures:stop_id");
 	var path = util.format('/interfaces/ura/instant_V1?StopID=%d'
 			+ '&ReturnList=StopPointName,LineName,DestinationName,EstimatedTime', stopId);
 	request('http://ivu.aseag.de' + path, function(error, response, body) {

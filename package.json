@@ -1,24 +1,29 @@
 {
-  "name": "dashboard",
-  "version": "0.0.1",
+  "name": "dashboard.js",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "express": "~4.2.0",
-    "static-favicon": "~1.0.0",
-    "morgan": "~1.0.0",
-    "cookie-parser": "~1.0.1",
-    "body-parser": "~1.0.0",
-    "debug": "~0.7.4",
-    "ejs": "~0.8.5",
-    "moment": "~2.8.1",
-    "dblite": "~0.6.1",
-    "later": "~1.1.6",
-    "glob": "~4.0.5",
-    "jsdom": "~1.0.0",
-    "node-hue-api": "~0.2.3",
-    "request": "~2.40.0"
+    "angular": "^1.6.1",
+    "body-parser": "~1.15.2",
+    "bootstrap": "^3.3.7",
+    "cheerio": "^0.22.0",
+    "cookie-parser": "~1.4.3",
+    "cubism": "^1.6.0",
+    "d3": "^3.5.17",
+    "debug": "~2.2.0",
+    "ejs": "~2.5.2",
+    "express": "~4.14.0",
+    "font-awesome": "^4.7.0",
+    "influx": "^5.0.0-alpha.4",
+    "jquery": "^3.1.1",
+    "jquery-knob": "^1.2.11",
+    "moment": "^2.17.1",
+    "morgan": "~1.7.0",
+    "nconf": "^0.8.4",
+    "request": "^2.79.0",
+    "serve-favicon": "~2.3.0"
   }
 }

@@ -1,0 +1,17 @@
+<div class="panel panel-clock">
+  <div ng-controller="clock">
+    <div class="clock-wrapper">
+      <div style="position:absolute; left:0px; top:0px">
+        <input class="clock hour" data-min="0" data-max="12" data-bgColor="#333" data-fgColor="#3498db" data-displayInput="false" data-width="140" data-height="140" data-thickness=".3">
+      </div>
+      <div style="position:absolute; left:15px; top:15px">
+        <input class="clock minute" data-min="0" data-max="60" data-bgColor="#333" data-fgColor="#00bc8c" data-displayInput="false" data-width="110" data-height="110" data-thickness=".3">
+      </div>
+      <div style="position:absolute; left:30px; top:30px">
+        <input class="clock second" data-min="0" data-max="60" data-bgColor="#333" data-fgColor="#e74c3c" data-displayInput="false" data-width="80" data-height="80" data-thickness=".15">
+      </div>
+    </div>
+    <span class="time">{{time}}</span>
+    <span class="datetime">{{datetime}}</span>
+  </div>
+</div>
