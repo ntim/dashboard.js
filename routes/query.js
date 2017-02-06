@@ -1,10 +1,21 @@
 var express = require('express');
 var router = express.Router();
 
+var nconf = require('nconf');
+// Then load configuration from a designated file.
+nconf.file({ file: 'config.json' });
+// Provide default values for settings not provided above.
+nconf.defaults({
+	'query': {
+		'host': 'localhost',
+		'database': 'telegraf'
+	}
+});
+
 const Influx = require('influx')
 const influx = new Influx.InfluxDB({
-	host: 'osmc',
-	database: 'telegraf',
+	host: nconf.get('query:host'),
+	database: nconf.get('query:database'),
 });
 
 router.get('/:table/:field/:start/:step', function(req, res, next) {
