@@ -81,7 +81,7 @@ angular.module('app', []).controller('clock', ['$scope', function($scope) {
 			$scope.$apply();
 		});
 	}
-	// Update every hour.
+	// Update every minute.
 	setInterval(update, 60 * 1000);
 	update();
 }]).controller('departures', ['$scope', function($scope) {
@@ -170,6 +170,8 @@ function($window) {
 					Plotly.redraw(element[0]);
 				});
 			}
+			// Update every minute.
+			setInterval(update, 60 * 1000);
 			// Check if dom already present.
 			if ($window._loaded) {
 				init();
@@ -184,7 +186,7 @@ function($window) {
 				$(this).addClass('active');
 				update();
 			});
-			//
+			// Listen to resize events.
 			angular.element($window).bind('resize', function() {
 				Plotly.Plots.resize(element[0]);
 			});
