@@ -10,7 +10,7 @@ nconf.file({ file: 'config.json' });
 // Provide default values for settings not provided above.
 nconf.defaults({
 	'departures' : {
-		'stop_id' : "100629" // Campus melaten
+		'stop_id': '100629' // Campus Melaten, Aachen
 	}
 });
 

@@ -9,8 +9,8 @@ var nconf = require('nconf');
 nconf.file({ file: 'config.json' });
 // Provide default values for settings not provided above.
 nconf.defaults({
-	'weather' : {
-		'apikey' : "",
+	'weather': {
+		'apikey': '',
 		'lat': 50.7765549,
 		'lon': 6.046465
 	}
