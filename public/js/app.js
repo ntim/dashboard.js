@@ -18,8 +18,10 @@ function DataIncubator() {
 		x: [], 
 		y: [], 
 		type: "scatter", 
+		connectgaps: true,
 		line: { 
-			color: cycler.next() 
+			color: cycler.next(),
+			shape: 'spline'
 		}
 	};
 	this.update = function(values) {
