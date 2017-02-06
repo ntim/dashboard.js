@@ -21,7 +21,6 @@ function DataIncubator() {
 		connectgaps: true,
 		line: { 
 			color: cycler.next(),
-			shape: 'spline'
 		}
 	};
 	this.update = function(values) {
