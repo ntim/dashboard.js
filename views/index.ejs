@@ -46,14 +46,14 @@
       <div class="col-md-6"><% include partials/departures %></div>
     </div>
     <div class="row">
-      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-thermometer-full', name: 'Temperature', unit: ' \xB0C', table: 'ambient_exec', field: 'temperature'}); %></div>
-      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-tint', name: 'Humidity', unit: ' %', table: 'ambient_exec', field: 'humidity'}); %></div>
-      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-circle-o', name: 'Pressure', unit: ' hPa', table: 'ambient_exec', field: 'pressure'}); %></div>
+      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-thermometer-full', name: 'Temperature inside', unit: ' \xB0C', table: 'ambient_exec', field: 'temperature'}); %></div>
+      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-tint', name: 'Humidity inside', unit: ' %', table: 'ambient_exec', field: 'humidity'}); %></div>
+      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-circle-o', name: 'Pressure inside', unit: ' hPa', table: 'ambient_exec', field: 'pressure'}); %></div>
     </div>
     <div class="row">
-      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-thermometer-full', name: 'Temperature', unit: ' \xB0C', table: 'weather_exec', field: 'temperature'}); %></div>
-      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-tint', name: 'Humidity', unit: ' %', table: 'weather_exec', field: 'humidity'}); %></div>
-      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-circle-o', name: 'Pressure', unit: ' hPa', table: 'weather_exec', field: 'pressure'}); %></div>
+      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-thermometer-full', name: 'Temperature outside', unit: ' \xB0C', table: 'weather_exec', field: 'temperature'}); %></div>
+      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-tint', name: 'Humidity outside', unit: ' %', table: 'weather_exec', field: 'humidity'}); %></div>
+      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-circle-o', name: 'Pressure outside', unit: ' hPa', table: 'weather_exec', field: 'pressure'}); %></div>
     </div>
   </div>
 </body>
