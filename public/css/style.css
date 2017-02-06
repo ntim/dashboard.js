@@ -46,6 +46,9 @@ body {
 .panel-heading {
 	padding-left: 8px;
 }
+.panel-heading .fa {
+	margin-right: .25em;
+}
 .panel-chart .panel-body {
 	padding: 0;
 }
