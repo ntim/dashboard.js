@@ -20,13 +20,13 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// less middleware
+app.use(less(path.join(__dirname, 'public', 'css')));
 // browserify middleware
 app.get('/js/bundle.js', browserify(path.join(__dirname, 'public', 'js', 'app.js'), {
   cache: true,
   precompile: true,
 }));
-// less middleware
-app.use(less(path.join(__dirname, 'public/css/')));
 // compression
 app.use(compression());
 

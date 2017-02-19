@@ -33,3 +33,6 @@ node_modules
 
 # Config file
 config.json
+
+# Compiled CSS
+public/css/style.css
