@@ -1,0 +1,92 @@
+// Core variables and mixins
+@import "node_modules/bootstrap/less/variables.less";
+@import "node_modules/bootstrap/less/mixins.less";
+
+// Reset and dependencies
+@import "node_modules/bootstrap/less/normalize.less";
+@import "node_modules/bootstrap/less/print.less";
+@import "node_modules/bootstrap/less/glyphicons.less";
+
+// Core CSS
+@import "node_modules/bootstrap/less/scaffolding.less";
+@import "node_modules/bootstrap/less/type.less";
+@import "node_modules/bootstrap/less/code.less";
+@import "node_modules/bootstrap/less/grid.less";
+@import "node_modules/bootstrap/less/tables.less";
+@import "node_modules/bootstrap/less/forms.less";
+@import "node_modules/bootstrap/less/buttons.less";
+
+// Components
+@import "node_modules/bootstrap/less/button-groups.less";
+@import "node_modules/bootstrap/less/input-groups.less";
+@import "node_modules/bootstrap/less/navs.less";
+@import "node_modules/bootstrap/less/navbar.less";
+@import "node_modules/bootstrap/less/panels.less";
+
+// Utility classes
+@import "node_modules/bootstrap/less/utilities.less";
+@import "node_modules/bootstrap/less/responsive-utilities.less";
+
+// Font awesome
+@import "node_modules/font-awesome/less/font-awesome.less";
+
+@import (inline) "public/css/bootstrap.darkly.min.css";
+
+body {
+	padding-top: 5.5em;
+}
+
+.panel {
+	height:190px;
+	overflow:hidden;
+	border-radius:4px 4px 4px 4px;
+	margin-bottom:30px;
+}
+.panel-clock {
+	text-align:center;
+	padding: 15px;
+}
+.clock-wrapper {
+	position:relative;
+	width: 140px;
+	height: 140px;
+	margin:auto;
+}
+.panel-clock .time {
+	color:white;
+	font-size: 1.25em;
+	font-weight: bold;
+	position: relative;
+	bottom: 84px;
+	display: block;
+}
+.panel-clock .datetime {
+	color:white;
+	font-size: 1.25em;
+	font-weight: bold;
+	position: relative;
+	bottom: 27px;
+	display: block;
+}
+.panel-double-height {
+	height: 410px;
+}
+.panel .table {
+	margin-bottom: 0;
+}
+.panel .table tr:first-child td {
+	border-top: none;
+}
+.panel-heading {
+	padding-left: 8px;
+}
+.panel-heading .fa {
+	margin-right: .25em;
+}
+.panel-chart .panel-body {
+	padding: 0;
+}
+.chart {
+	position: relative;
+	display: block;
+}

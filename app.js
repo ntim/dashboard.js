@@ -4,6 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var compression = require('compression');
+var less = require('less-middleware');
+var browserify = require('browserify-middleware');
+var compression = require('compression');
 
 var index = require('./routes/index');
 var weather = require('./routes/weather');
@@ -16,25 +20,30 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// browserify middleware
+app.get('/js/bundle.js', browserify(path.join(__dirname, 'public', 'js', 'app.js'), {
+  cache: true,
+  precompile: true,
+}));
+// less middleware
+app.use(less(path.join(__dirname, 'public/css/')));
+// compression
+app.use(compression());
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Enable public assets.
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist')));
-app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery-knob/dist')));
-app.use('/js', express.static(path.join(__dirname, '/node_modules/gridster/dist')));
-app.use('/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
-app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css')));
+// Fonts.
 app.use('/fonts', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/fonts')));
-app.use('/js', express.static(path.join(__dirname, '/node_modules/angular')));
-app.use('/js', express.static(path.join(__dirname, '/node_modules/moment')));
-app.use('/js', express.static(path.join(__dirname, '/node_modules/plotly.js/dist')));
-app.use('/css', express.static(path.join(__dirname, '/node_modules/font-awesome/css')));
 app.use('/fonts', express.static(path.join(__dirname, '/node_modules/font-awesome/fonts')));
 
+// routes
 app.use('/', index);
 app.use('/weather', weather);
 app.use('/departures', departures);

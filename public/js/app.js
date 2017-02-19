@@ -1,3 +1,13 @@
+var angular = require('angular');
+var $ = jQuery = require('jquery');
+require('jquery-knob');
+var moment = require('moment');
+
+var Plotly = require('plotly.js/lib/core');
+Plotly.register([
+    require('plotly.js/lib/scatter'),
+]);
+
 function ColorCycler() {
 	this.colors = ["#0275d8", "#5cb85c", "#d9534f"]
 	this.idx = 0;
@@ -117,7 +127,8 @@ function($window) {
 			var get_uri = function() {
 				var selection = $('#span-select .active input')[0];
 				var start = parseInt(selection.getAttribute('period'));
-				var step = start / 60;
+				// Limit step to 240 data points max.
+				var step = Math.max(start / 240, attrs.groupBy)
 				return "/query/" + attrs.table + "/" + attrs.field + "/" + start + "s/" + step + "s";
 			}
 			// Data incubator.

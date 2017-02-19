@@ -2,18 +2,8 @@
 <html ng-app="app">
 <head>
   <title><%= title %></title>
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.darkly.min.css">
-  <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/css/style.css" />
-
-  <script type="text/javascript" src="/js/jquery.min.js"></script>
-  <script type="text/javascript" src="/js/jquery.knob.min.js"></script>
-  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="/js/moment.js"></script>
-  <script type="text/javascript" src="/js/angular.min.js"></script>
-  <script type="text/javascript" src="/js/plotly.min.js"></script>
-  <script type="text/javascript" src="/js/app.js"></script>
+  <script type="text/javascript" src="/js/bundle.js"></script>
 </head>
 <body>
   <nav class="navbar navbar-default navbar-fixed-top">
@@ -26,13 +16,13 @@
         <form id="span-select" class="navbar-form navbar-right">
           <div class="btn-group" data-toggle="buttons">
             <label class="btn btn-default ">
-              <input type="radio" period="3600" autocomplete="off"> 1h
+              <input type="radio" period="3300" autocomplete="off"> 1h
             </label>
             <label class="btn btn-default active">
               <input type="radio" period="86400" autocomplete="off" > 1d
             </label>
             <label class="btn btn-default">
-              <input type="radio" period="604800" autocomplete="off"> 1w
+              <input type="radio" period="304800" autocomplete="off"> 1w
             </label>
           </div>
         </form>
@@ -46,14 +36,14 @@
       <div class="col-md-6"><% include partials/departures %></div>
     </div>
     <div class="row">
-      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-thermometer-full', name: 'Temperature inside', unit: ' \xB0C', table: 'ambient_exec', field: 'temperature'}); %></div>
-      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-tint', name: 'Humidity inside', unit: ' %', table: 'ambient_exec', field: 'humidity'}); %></div>
-      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-circle-o', name: 'Pressure inside', unit: ' hPa', table: 'ambient_exec', field: 'pressure'}); %></div>
+      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-thermometer-full', name: 'Temperature inside', unit: ' \xB0C', table: 'ambient_exec', field: 'temperature', group_by: '30'}); %></div>
+      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-tint', name: 'Humidity inside', unit: ' %', table: 'ambient_exec', field: 'humidity', group_by: '30'}); %></div>
+      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-circle-o', name: 'Pressure inside', unit: ' hPa', table: 'ambient_exec', field: 'pressure', group_by: '30'}); %></div>
     </div>
     <div class="row">
-      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-thermometer-full', name: 'Temperature outside', unit: ' \xB0C', table: 'weather_exec', field: 'temperature'}); %></div>
-      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-tint', name: 'Humidity outside', unit: ' %', table: 'weather_exec', field: 'humidity'}); %></div>
-      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-circle-o', name: 'Pressure outside', unit: ' hPa', table: 'weather_exec', field: 'pressure'}); %></div>
+      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-thermometer-full', name: 'Temperature outside', unit: ' \xB0C', table: 'weather_exec', field: 'temperature', group_by: '1800'}); %></div>
+      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-tint', name: 'Humidity outside', unit: ' %', table: 'weather_exec', field: 'humidity', group_by: '1800'}); %></div>
+      <div class="col-md-4"><%- include('partials/chart', {icon: 'fa-circle-o', name: 'Pressure outside', unit: ' hPa', table: 'weather_exec', field: 'pressure', group_by: '1800'}); %></div>
     </div>
   </div>
 </body>
