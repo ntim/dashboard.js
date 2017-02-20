@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "build:css": "lessc --clean-css public/css/style.less public/css/style.css",
+    "build:js": "browserify public/js/app.js -g uglifyify -o public/js/bundle.js",
+    "build": "npm run build:css && npm run build:js"
   },
   "dependencies": {
     "angular": "^1.6.1",
     "body-parser": "~1.15.2",
     "bootstrap": "^3.3.7",
+    "browserify": "^14.1.0",
     "browserify-middleware": "^7.1.0",
     "cheerio": "^0.22.0",
     "compression": "^1.6.2",
@@ -21,12 +25,15 @@
     "influx": "^5.0.0-alpha.4",
     "jquery": "^3.1.1",
     "jquery-knob": "^1.2.11",
+    "less": "^2.7.2",
     "less-middleware": "^2.2.0",
+    "less-plugin-clean-css": "^1.5.1",
     "moment": "^2.17.1",
     "morgan": "~1.7.0",
     "nconf": "^0.8.4",
     "plotly.js": "^1.22.0",
     "request": "^2.79.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "uglifyify": "^3.0.4"
   }
 }

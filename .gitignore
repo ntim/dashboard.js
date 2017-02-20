@@ -36,3 +36,7 @@ config.json
 
 # Compiled CSS
 public/css/style.css
+
+# Compile JS
+public/js/bundle.js
+

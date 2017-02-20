@@ -5,8 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compression = require('compression');
-var less = require('less-middleware');
-var browserify = require('browserify-middleware');
 var compression = require('compression');
 
 var index = require('./routes/index');
@@ -20,13 +18,21 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// less middleware
-app.use(less(path.join(__dirname, 'public', 'css')));
-// browserify middleware
-app.get('/js/bundle.js', browserify(path.join(__dirname, 'public', 'js', 'app.js'), {
-  cache: true,
-  precompile: true,
-}));
+// Compile less and js on the fly in development.
+if (app.get('env') === 'development') {
+	var less = require('less-middleware');
+	var browserify = require('browserify-middleware');
+	// less middleware
+	app.use(less(path.join(__dirname, 'public')));
+	// browserify middleware
+	app.get('/js/bundle.js', browserify(path.join(__dirname, 'public', 'js', 'app.js'), {
+	  cache: true,
+	  precompile: true,
+	}));
+}
+// configure static assets.
+app.use(express.static(path.join(__dirname, 'public')));
+
 // compression
 app.use(compression());
 
@@ -37,8 +43,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// Enable public assets.
-app.use(express.static(path.join(__dirname, 'public')));
 // Fonts.
 app.use('/fonts', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/fonts')));
 app.use('/fonts', express.static(path.join(__dirname, '/node_modules/font-awesome/fonts')));
