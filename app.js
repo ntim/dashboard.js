@@ -30,11 +30,11 @@ if (app.get('env') === 'development') {
 	  precompile: true,
 	}));
 }
-// configure static assets.
-app.use(express.static(path.join(__dirname, 'public')));
-
 // compression
 app.use(compression());
+
+// configure static assets.
+app.use(express.static(path.join(__dirname, 'public')));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
